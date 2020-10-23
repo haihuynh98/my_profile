@@ -1,0 +1,39 @@
+.content {
+    .block-contact{
+        display: block;
+        margin: 0 0 15px;
+        background-color: #fcfcfc;
+        padding: 20px 10px;
+        border: 1px solid #e5e5e5;
+        text-align: center;
+        i{
+            font-size: 30px;
+            color: #04B4E0;
+        }
+        h4{
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            font-size: 15px;
+            margin: 20px 0 0 0 ;
+        }
+    }
+
+    .mapouter {
+        position: relative;
+        text-align: right;
+        height: 200px;
+        width: 500px;
+    }
+
+    .gmap_canvas {
+        overflow: hidden;
+        background: none !important;
+        height: 200px;
+        width: 500px;
+        iframe{
+            width: 100%;
+        }
+    }
+
+}

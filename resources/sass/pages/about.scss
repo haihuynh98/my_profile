@@ -1,0 +1,37 @@
+.content {
+    ul.personal-info {
+        list-style: none;
+
+        li {
+            margin: 10px 0;
+
+            span:first-child {
+                color: #04B4E0;
+                font-weight: bold;
+                margin-right: 10px;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .ido-container {
+        .item {
+            margin-top: 20px;
+
+            i {
+                font-size: 50px;
+                color: #04B4E0;
+            }
+
+            h4 {
+                margin-top: 10px;
+                font-weight: bold;
+                text-align: left;
+            }
+
+            p {
+                margin-top: 10px;
+            }
+        }
+    }
+}
