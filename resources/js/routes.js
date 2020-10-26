@@ -9,6 +9,7 @@ export const routes = [
         name: 'home',
         path: '/',
         component: About,
+
     },
     {
         name: 'contact',
@@ -30,5 +31,4 @@ export const routes = [
         path: '/work-experience',
         component: Work_Experience,
     },
-
 ]

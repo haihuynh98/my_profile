@@ -1960,6 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
@@ -2163,31 +2164,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'About',
-  data: function data() {
-    return {
-      info: {}
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    axios.get('/api/info/index').then(function (response) {
-      _this.info = response.data;
-    });
+  props: {
+    dataInfo: Object
   },
   methods: {
     updateInfo: function updateInfo() {
-      var _this2 = this;
+      var _this = this;
 
-      axios.post("/api/info/update", this.info).then(function (response) {
-        _this2.flash('Your changes have been saved', 'success');
+      axios.post("/api/info/update", this.dataInfo).then(function (response) {
+        _this.flash('Your changes have been saved', 'success');
 
         $('h1#i_name').text($('input#i_name').val());
         $('p#i_position').text($('input#i_position').val());
       })["catch"](function (error) {
-        return _this2.flash(error, 'error');
+        return _this.flash(error, 'error');
       })["finally"](function () {
-        return _this2.loading = false;
+        return _this.loading = false;
       });
     }
   }
@@ -39357,7 +39349,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "layer-2", attrs: { id: "content" } }, [
-            _c("figure", [_c("router-view")], 1)
+            _c(
+              "figure",
+              [_c("router-view", { attrs: { dataInfo: _vm.info } })],
+              1
+            )
           ])
         ])
       ])
@@ -39635,32 +39631,32 @@ var render = function() {
         _c("ul", { staticClass: "personal-info" }, [
           _c("li", [
             _c("span", [_vm._v("Age")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_age"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_age"]))])
           ]),
           _vm._v(" "),
           _c("li", [
             _c("span", [_vm._v("Nationality ")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_nationality"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_nationality"]))])
           ]),
           _vm._v(" "),
           _c("li", [
             _c("span", [_vm._v("Address")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_address"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_address"]))])
           ]),
           _vm._v(" "),
           _c("li", [
             _c("span", [_vm._v("City")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_city"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_city"]))])
           ]),
           _vm._v(" "),
           _c("li", [
             _c("span", [_vm._v("E-mail")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_email"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_email"]))])
           ]),
           _vm._v(" "),
           _c("li", [
             _c("span", [_vm._v("Phone")]),
-            _c("span", [_vm._v(_vm._s(_vm.info["i_phone"]))])
+            _c("span", [_vm._v(_vm._s(_vm.dataInfo["i_phone"]))])
           ])
         ])
       ])
@@ -39690,19 +39686,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.info.i_name,
-                      expression: "info.i_name"
+                      value: _vm.dataInfo.i_name,
+                      expression: "dataInfo.i_name"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "i_name" },
-                  domProps: { value: _vm.info.i_name },
+                  domProps: { value: _vm.dataInfo.i_name },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.info, "i_name", $event.target.value)
+                      _vm.$set(_vm.dataInfo, "i_name", $event.target.value)
                     }
                   }
                 })
@@ -39718,19 +39714,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.info.i_position,
-                      expression: "info.i_position"
+                      value: _vm.dataInfo.i_position,
+                      expression: "dataInfo.i_position"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "i_position" },
-                  domProps: { value: _vm.info.i_position },
+                  domProps: { value: _vm.dataInfo.i_position },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.info, "i_position", $event.target.value)
+                      _vm.$set(_vm.dataInfo, "i_position", $event.target.value)
                     }
                   }
                 })
@@ -39746,19 +39742,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_age,
-                  expression: "info.i_age"
+                  value: _vm.dataInfo.i_age,
+                  expression: "dataInfo.i_age"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_age },
+              domProps: { value: _vm.dataInfo.i_age },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_age", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_age", $event.target.value)
                 }
               }
             })
@@ -39772,19 +39768,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_nationality,
-                  expression: "info.i_nationality"
+                  value: _vm.dataInfo.i_nationality,
+                  expression: "dataInfo.i_nationality"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_nationality },
+              domProps: { value: _vm.dataInfo.i_nationality },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_nationality", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_nationality", $event.target.value)
                 }
               }
             })
@@ -39798,19 +39794,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_address,
-                  expression: "info.i_address"
+                  value: _vm.dataInfo.i_address,
+                  expression: "dataInfo.i_address"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_address },
+              domProps: { value: _vm.dataInfo.i_address },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_address", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_address", $event.target.value)
                 }
               }
             })
@@ -39824,19 +39820,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_city,
-                  expression: "info.i_city"
+                  value: _vm.dataInfo.i_city,
+                  expression: "dataInfo.i_city"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_city },
+              domProps: { value: _vm.dataInfo.i_city },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_city", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_city", $event.target.value)
                 }
               }
             })
@@ -39850,19 +39846,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_email,
-                  expression: "info.i_email"
+                  value: _vm.dataInfo.i_email,
+                  expression: "dataInfo.i_email"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_email },
+              domProps: { value: _vm.dataInfo.i_email },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_email", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_email", $event.target.value)
                 }
               }
             })
@@ -39876,19 +39872,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.i_phone,
-                  expression: "info.i_phone"
+                  value: _vm.dataInfo.i_phone,
+                  expression: "dataInfo.i_phone"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.info.i_phone },
+              domProps: { value: _vm.dataInfo.i_phone },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.info, "i_phone", $event.target.value)
+                  _vm.$set(_vm.dataInfo, "i_phone", $event.target.value)
                 }
               }
             })

@@ -43,15 +43,15 @@
                 </div>
                 <div class="layer-2" id="content">
                     <figure>
-                        <router-view></router-view>
+                         <router-view v-bind:dataInfo="info"></router-view>
                     </figure>
                 </div>
             </div>
         </div>
     </div>
-</template><!--<template>--><!--    <div class="container">--><!--        <div class="text-center" style="margin: 20px 0px 20px 0px;"><a href="https://www.mynotepaper.com/" target="_blank"><img src="https://i.imgur.com/hHZjfUq.png"></a><br> <span--><!--            class="text-secondary">Laravel & Vue CRUD Single Page Application (SPA) Tutorial</span></div>--><!--        <nav class="navbar navbar-expand-lg navbar-light bg-light">--><!--            <div class="collapse navbar-collapse">--><!--                <div class="navbar-nav">--><!--                    <router-link to="/" class="nav-item nav-link">Home</router-link>--><!--                    <router-link to="/add" class="nav-item nav-link">Add Book</router-link>--><!--                    <router-link to="/about" class="nav-item nav-link">About</router-link>--><!--                </div>--><!--            </div>--><!--        </nav>--><!--        <br/>--><!--        <router-view></router-view>--><!--    </div>--><!--</template>-->
-<script>
+</template>
 
+<script>
     export default {
         name: 'App',
         data() {
@@ -62,7 +62,6 @@
         created() {
             axios.get('/api/info/index').then(response => {
                 this.info = response.data
-
             })
         },
     }

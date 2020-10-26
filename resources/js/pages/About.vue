@@ -13,12 +13,12 @@
             </div>
             <div class="col-md-4">
                 <ul class="personal-info">
-                    <li><span>Age</span><span>{{info['i_age']}}</span></li>
-                    <li><span>Nationality </span><span>{{info['i_nationality']}}</span></li>
-                    <li><span>Address</span><span>{{info['i_address']}}</span></li>
-                    <li><span>City</span><span>{{info['i_city']}}</span></li>
-                    <li><span>E-mail</span><span>{{info['i_email']}}</span></li>
-                    <li><span>Phone</span><span>{{info['i_phone']}}</span></li>
+                    <li><span>Age</span><span>{{dataInfo['i_age']}}</span></li>
+                    <li><span>Nationality </span><span>{{dataInfo['i_nationality']}}</span></li>
+                    <li><span>Address</span><span>{{dataInfo['i_address']}}</span></li>
+                    <li><span>City</span><span>{{dataInfo['i_city']}}</span></li>
+                    <li><span>E-mail</span><span>{{dataInfo['i_email']}}</span></li>
+                    <li><span>Phone</span><span>{{dataInfo['i_phone']}}</span></li>
                 </ul>
             </div>
         </div>
@@ -32,39 +32,39 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="i_name" v-model="info.i_name">
+                            <input type="text" class="form-control" id="i_name" v-model="dataInfo.i_name">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Position</label>
-                            <input type="text" class="form-control" id="i_position" v-model="info.i_position">
+                            <input type="text" class="form-control" id="i_position" v-model="dataInfo.i_position">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Age</label>
-                    <input type="text" class="form-control" v-model="info.i_age">
+                    <input type="text" class="form-control" v-model="dataInfo.i_age">
                 </div>
                 <div class="form-group">
                     <label>Nationality </label>
-                    <input type="text" class="form-control" v-model="info.i_nationality">
+                    <input type="text" class="form-control" v-model="dataInfo.i_nationality">
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" class="form-control" v-model="info.i_address">
+                    <input type="text" class="form-control" v-model="dataInfo.i_address">
                 </div>
                 <div class="form-group">
                     <label>City</label>
-                    <input type="text" class="form-control" v-model="info.i_city">
+                    <input type="text" class="form-control" v-model="dataInfo.i_city">
                 </div>
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="text" class="form-control" v-model="info.i_email">
+                    <input type="text" class="form-control" v-model="dataInfo.i_email">
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" class="form-control" v-model="info.i_phone">
+                    <input type="text" class="form-control" v-model="dataInfo.i_phone">
                 </div>
                 <button type="submit" class="btn btn-primary">Update Info</button>
             </form>
@@ -101,19 +101,12 @@
 <script>
     export default {
         name: 'About',
-        data() {
-            return {
-                info: {},
-            }
-        },
-        created() {
-            axios.get('/api/info/index').then(response => {
-                this.info = response.data
-            })
+        props: {
+            dataInfo: Object,
         },
         methods: {
             updateInfo() {
-                axios.post(`/api/info/update`, this.info).then((response) => {
+                axios.post(`/api/info/update`, this.dataInfo).then((response) => {
                     this.flash('Your changes have been saved', 'success')
                     $('h1#i_name').text($('input#i_name').val())
                     $('p#i_position').text($('input#i_position').val())
