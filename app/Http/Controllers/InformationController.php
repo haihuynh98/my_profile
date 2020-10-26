@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Information;
+use Illuminate\Support\Facades\DB;
 
 class InformationController extends Controller
 {
@@ -66,24 +67,48 @@ class InformationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @param Request $request
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Information $information
-     *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
-    public function update(Request $request, Information $information)
+    public function update(Request $request)
     {
-        $array = $request->all();
-        while ($item = current($array)) {
+        DB::beginTransaction();
+        $datas = $request->all() ?: [];
+        foreach ($datas as $key => $data) {
+            /** @var Information $info */
+            $info = Information::where('type', $key)->first();
+            if ($info->update(['content' => $data])) {
+                $datas[$key] = $data;
+                continue;
+            }
 
-            $info = Information::where('type', key($array))->first();
-            $info->update(array('content'=>$item));
-            next($array);
+            return [
+                'datas' => false,
+                'mess'   => 'Your changes have been error',
+            ];
+        }
+        DB::commit();
+        if (empty($datas)) {
+            return [
+                'datas' => false,
+                'mess'   => 'Your changes have been error',
+            ];
         }
 
-        return response()->json('Your changes have been saved');
+        return [
+            'datas' => $datas,
+            'mess'   => 'Your changes have been saved',
+        ];
+//        while ($item = current($array)) {
+//
+//            $info = Information::where('type', key($array))->first();
+//            $info->update(array('content'=>$item));
+//            next($array);
+//        }
+//
+//        return response()->json('');
+
     }
 
     /**

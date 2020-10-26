@@ -32,39 +32,39 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" id="i_name" v-model="dataInfo.i_name">
+                            <input type="text" class="form-control" id="i_name" v-model="info.i_name">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Position</label>
-                            <input type="text" class="form-control" id="i_position" v-model="dataInfo.i_position">
+                            <input type="text" class="form-control" id="i_position" v-model="info.i_position">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Age</label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_age">
+                    <input type="text" class="form-control" v-model="info.i_age">
                 </div>
                 <div class="form-group">
                     <label>Nationality </label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_nationality">
+                    <input type="text" class="form-control" v-model="info.i_nationality">
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_address">
+                    <input type="text" class="form-control" v-model="info.i_address">
                 </div>
                 <div class="form-group">
                     <label>City</label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_city">
+                    <input type="text" class="form-control" v-model="info.i_city">
                 </div>
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_email">
+                    <input type="text" class="form-control" v-model="info.i_email">
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" class="form-control" v-model="dataInfo.i_phone">
+                    <input type="text" class="form-control" v-model="info.i_phone" pre>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Info</button>
             </form>
@@ -103,15 +103,38 @@
         name: 'About',
         props: {
             dataInfo: Object,
+            dataLayout: Object,
+        },
+        data() {
+            return {
+                info: {},
+            }
         },
         methods: {
+            getPropData() {
+                this.info = this.dataInfo
+            },
             updateInfo() {
-                axios.post(`/api/info/update`, this.dataInfo).then((response) => {
-                    this.flash('Your changes have been saved', 'success')
-                    $('h1#i_name').text($('input#i_name').val())
-                    $('p#i_position').text($('input#i_position').val())
+                // this.$emit('updateInfo',this.info)
+                axios.post(`/api/info/update`, this.info).then((response) => {
+                    let style = 'error'
+                    let result = response.data
+                    if (result.datas) {
+                        let data = result.datas
+                        this.dataLayout.i_name = data.i_name
+                        this.dataLayout.i_position = data.i_position
+                        style = 'success'
+                    }
+                    this.flash(result.mess, style)
                 }).catch(error => (this.flash(error, 'error'))).finally(() => (this.loading = false))
             },
+        },
+        created() {
+            this.getPropData()
+        },
+        updated() {
+            this.getPropData()
+            console.log('update', this.dataLayout)
         },
     }
 </script>

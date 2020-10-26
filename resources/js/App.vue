@@ -6,9 +6,9 @@
                 <div class="avatar">
                     <img src="/images/avatar.jpg" alt="">
                 </div>
-                <div class="name" id="infoLayout">
-                    <h1>{{ info.i_name }}</h1>
-                    <p>{{ info.i_position }}</p>
+                <div class="name">
+                    <h1>{{ infoLayout.i_name }}</h1>
+                    <p>{{ infoLayout.i_position }}</p>
                 </div>
                 <div class="social-links">
                     <ul>
@@ -43,27 +43,47 @@
                 </div>
                 <div class="layer-2" id="content">
                     <figure>
-                         <router-view v-bind:dataInfo="info"></router-view>
+                        <router-view v-bind:dataInfo="info" v-bind:dataLayout="infoLayout"></router-view>
                     </figure>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
     export default {
         name: 'App',
         data() {
             return {
                 info: {},
+                infoLayout: {},
             }
         },
         created() {
             axios.get('/api/info/index').then(response => {
+                this.getInfoLayout(response.data)
                 this.info = response.data
             })
+
         },
+        methods: {
+        getInfoLayout(data) {
+                // console.log(data)
+                this.infoLayout = {
+                    i_name: data.i_name,
+                    i_position: data.i_position,
+                }
+            },
+        },
+        computed:{
+            // getInfoLayout(data) {
+            //     // console.log(data)
+            //     this.infoLayout = {
+            //         i_name: data.i_name,
+            //         i_position: data.i_position,
+            //     }
+            // },
+        }
     }
 </script>
 <style scoped></style>

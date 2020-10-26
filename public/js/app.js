@@ -1960,20 +1960,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   data: function data() {
     return {
-      info: {}
+      info: {},
+      infoLayout: {}
     };
   },
   created: function created() {
     var _this = this;
 
     axios.get('/api/info/index').then(function (response) {
+      _this.getInfoLayout(response.data);
+
       _this.info = response.data;
     });
+  },
+  methods: {
+    getInfoLayout: function getInfoLayout(data) {
+      // console.log(data)
+      this.infoLayout = {
+        i_name: data.i_name,
+        i_position: data.i_position
+      };
+    }
+  },
+  computed: {// getInfoLayout(data) {
+    //     // console.log(data)
+    //     this.infoLayout = {
+    //         i_name: data.i_name,
+    //         i_position: data.i_position,
+    //     }
+    // },
   }
 });
 
@@ -2165,23 +2184,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'About',
   props: {
-    dataInfo: Object
+    dataInfo: Object,
+    dataLayout: Object
+  },
+  data: function data() {
+    return {
+      info: {}
+    };
   },
   methods: {
+    getPropData: function getPropData() {
+      this.info = this.dataInfo;
+    },
     updateInfo: function updateInfo() {
       var _this = this;
 
-      axios.post("/api/info/update", this.dataInfo).then(function (response) {
-        _this.flash('Your changes have been saved', 'success');
+      // this.$emit('updateInfo',this.info)
+      axios.post("/api/info/update", this.info).then(function (response) {
+        var style = 'error';
+        var result = response.data;
 
-        $('h1#i_name').text($('input#i_name').val());
-        $('p#i_position').text($('input#i_position').val());
+        if (result.datas) {
+          var data = result.datas;
+          _this.dataLayout.i_name = data.i_name;
+          _this.dataLayout.i_position = data.i_position;
+          style = 'success';
+        }
+
+        _this.flash(result.mess, style);
       })["catch"](function (error) {
         return _this.flash(error, 'error');
       })["finally"](function () {
         return _this.loading = false;
       });
     }
+  },
+  created: function created() {
+    this.getPropData();
+  },
+  updated: function updated() {
+    this.getPropData();
+    console.log('update', this.dataLayout);
   }
 });
 
@@ -39267,10 +39310,10 @@ var render = function() {
         _c("header", { staticClass: "page-header" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "name", attrs: { id: "infoLayout" } }, [
-            _c("h1", [_vm._v(_vm._s(_vm.info.i_name))]),
+          _c("div", { staticClass: "name" }, [
+            _c("h1", [_vm._v(_vm._s(_vm.infoLayout.i_name))]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.info.i_position))])
+            _c("p", [_vm._v(_vm._s(_vm.infoLayout.i_position))])
           ]),
           _vm._v(" "),
           _vm._m(1),
@@ -39351,7 +39394,11 @@ var render = function() {
           _c("div", { staticClass: "layer-2", attrs: { id: "content" } }, [
             _c(
               "figure",
-              [_c("router-view", { attrs: { dataInfo: _vm.info } })],
+              [
+                _c("router-view", {
+                  attrs: { dataInfo: _vm.info, dataLayout: _vm.infoLayout }
+                })
+              ],
               1
             )
           ])
@@ -39686,19 +39733,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.dataInfo.i_name,
-                      expression: "dataInfo.i_name"
+                      value: _vm.info.i_name,
+                      expression: "info.i_name"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "i_name" },
-                  domProps: { value: _vm.dataInfo.i_name },
+                  domProps: { value: _vm.info.i_name },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.dataInfo, "i_name", $event.target.value)
+                      _vm.$set(_vm.info, "i_name", $event.target.value)
                     }
                   }
                 })
@@ -39714,19 +39761,19 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.dataInfo.i_position,
-                      expression: "dataInfo.i_position"
+                      value: _vm.info.i_position,
+                      expression: "info.i_position"
                     }
                   ],
                   staticClass: "form-control",
                   attrs: { type: "text", id: "i_position" },
-                  domProps: { value: _vm.dataInfo.i_position },
+                  domProps: { value: _vm.info.i_position },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.dataInfo, "i_position", $event.target.value)
+                      _vm.$set(_vm.info, "i_position", $event.target.value)
                     }
                   }
                 })
@@ -39742,19 +39789,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_age,
-                  expression: "dataInfo.i_age"
+                  value: _vm.info.i_age,
+                  expression: "info.i_age"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_age },
+              domProps: { value: _vm.info.i_age },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_age", $event.target.value)
+                  _vm.$set(_vm.info, "i_age", $event.target.value)
                 }
               }
             })
@@ -39768,19 +39815,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_nationality,
-                  expression: "dataInfo.i_nationality"
+                  value: _vm.info.i_nationality,
+                  expression: "info.i_nationality"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_nationality },
+              domProps: { value: _vm.info.i_nationality },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_nationality", $event.target.value)
+                  _vm.$set(_vm.info, "i_nationality", $event.target.value)
                 }
               }
             })
@@ -39794,19 +39841,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_address,
-                  expression: "dataInfo.i_address"
+                  value: _vm.info.i_address,
+                  expression: "info.i_address"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_address },
+              domProps: { value: _vm.info.i_address },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_address", $event.target.value)
+                  _vm.$set(_vm.info, "i_address", $event.target.value)
                 }
               }
             })
@@ -39820,19 +39867,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_city,
-                  expression: "dataInfo.i_city"
+                  value: _vm.info.i_city,
+                  expression: "info.i_city"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_city },
+              domProps: { value: _vm.info.i_city },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_city", $event.target.value)
+                  _vm.$set(_vm.info, "i_city", $event.target.value)
                 }
               }
             })
@@ -39846,19 +39893,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_email,
-                  expression: "dataInfo.i_email"
+                  value: _vm.info.i_email,
+                  expression: "info.i_email"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_email },
+              domProps: { value: _vm.info.i_email },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_email", $event.target.value)
+                  _vm.$set(_vm.info, "i_email", $event.target.value)
                 }
               }
             })
@@ -39872,19 +39919,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.dataInfo.i_phone,
-                  expression: "dataInfo.i_phone"
+                  value: _vm.info.i_phone,
+                  expression: "info.i_phone"
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text" },
-              domProps: { value: _vm.dataInfo.i_phone },
+              attrs: { type: "text", pre: "" },
+              domProps: { value: _vm.info.i_phone },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.dataInfo, "i_phone", $event.target.value)
+                  _vm.$set(_vm.info, "i_phone", $event.target.value)
                 }
               }
             })
