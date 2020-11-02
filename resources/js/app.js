@@ -19,7 +19,7 @@ require('vue-flash-message/dist/vue-flash-message.min.css')
 Vue.use(VueFlashMessage, {
     messageOptions: {
         timeout: 3000,
-        outerClass: "flash-wrapper",
+        outerClass: 'flash-wrapper',
     },
 })
 
@@ -65,8 +65,7 @@ $(document).ready(function() {
     NProgress.done()
 })
 
-Vue.use(VueRouter)
-Vue.use(axios)
+Vue.use(VueRouter, axios)
 
 const router = new VueRouter({
     mode: 'history',

@@ -1,8 +1,8 @@
-import About from './pages/About.vue'
-import Contact from './pages/Contact.vue'
-import Knowledge from './pages/Knowledge.vue'
-import Portfolio from './pages/Portfolio.vue'
-import Work_Experience from './pages/Work_Experience.vue'
+import About from './templates/About.vue'
+import Contact from './templates/Contact.vue'
+import Knowledge from './templates/Knowledge.vue'
+import Portfolio from './templates/Portfolio.vue'
+import Work_Experience from './templates/Work_Experience.vue'
 
 export const routes = [
     {

@@ -5,11 +5,13 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto asperiores at consequatur deserunt dolorem dolores ducimus earum error illo
-                   iure, labore laboriosam maiores minus modi molestias nisi officia perspiciatis porro quae quas quo quod sunt ut vel voluptatem voluptatibus. Alias aperiam atque
-                   blanditiis consectetur cupiditate dolorum eaque fuga impedit incidunt inventore ipsa ipsum labore magni maiores minima nam nesciunt odio pariatur perspiciatis
-                   provident quo sapiente similique, totam, veniam vitae! Aperiam asperiores beatae deleniti distinctio dolores eligendi enim ex incidunt iusto labore minus
-                   mollitia, nihil numquam officia pariatur quis rem, repudiandae, tempora veniam veritatis. Accusantium distinctio doloribus natus numquam voluptatibus?</p>
+                <p>My name is <strong>Hai Huynh</strong>. I was born and raised in a small rural area in Binh Thuan province Vietnam. I get to know and interact with computers very
+                   early
+                   and I
+                   love to do everything on it, i spent four years in college at the school in Ho Chi Minh City. During that time, I learned and studied about programming
+                   thinking. After graduation, I worked as a freelancer and worked for a software development company, my main work is web design and application development.
+                    <br>
+                   My favorite saying that I have read: <strong>" Everything you can imagine is real " - Pablo Picasso</strong></p>
             </div>
             <div class="col-md-4">
                 <ul class="personal-info">
@@ -77,22 +79,26 @@
                 <div class="col-md-6 item">
                     <i class="fas fa-laptop-code"></i>
                     <h4>Web Design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam beatae blanditiis debitis id itaque natus nemo neque provident reprehenderit.</p>
+                    <p>I have over 2 years of experience using <b>PHP</b> language and in parallel I have used <b>Laravel</b> for web development.
+                       Also, I research and do some projects using <b>Wordpress</b>, <b>Vuejs</b>. And in particular, my webside is using <b>Vuejs</b> (SPA - Single Page
+                       Application).</p>
                 </div>
                 <div class="col-md-6 item">
-                    <i class="fas fa-laptop-code"></i>
-                    <h4>Web Design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam beatae blanditiis debitis id itaque natus nemo neque provident reprehenderit.</p>
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Mobile Application</h4>
+                    <p>Mobile application is an industry that I really like, I have 1 year of experience in mobile application development. I have been using the <b>Dart (Flutter)</b>
+                       language to program a mobile application project recently.</p>
                 </div>
                 <div class="col-md-6 item">
-                    <i class="fas fa-laptop-code"></i>
-                    <h4>Web Design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam beatae blanditiis debitis id itaque natus nemo neque provident reprehenderit.</p>
+                    <i class="fas fa-pencil-ruler"></i>
+                    <h4>Graphic Design</h4>
+                    <p>Graphic design is a subject I like and I teach myself. I had experience from a skills competition and I won 3rd place in that competition. This helps me to
+                       have a better mindset in website design.</p>
                 </div>
                 <div class="col-md-6 item">
-                    <i class="fas fa-laptop-code"></i>
-                    <h4>Web Design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam beatae blanditiis debitis id itaque natus nemo neque provident reprehenderit.</p>
+                    <i class="fas fa-bezier-curve"></i>
+                    <h4>Project Management</h4>
+                    <p>I have managed quite a few personal projects and projects for clients. I can confidently manage the work needed to create a quality product.</p>
                 </div>
             </div>
         </div>
@@ -134,8 +140,9 @@
         },
         updated() {
             this.getPropData()
-            console.log('update', this.dataLayout)
         },
     }
 </script>
 <style scoped></style>
+
+
